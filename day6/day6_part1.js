@@ -1,0 +1,1 @@
+input.split(",,").map(group => group.replace(/,/g, "")).map(group => { var count = 0; var c = {}; for(var i=0; i<group.length; i++) { if(!c[group.charAt(i)]) {c[group.charAt(i)] = true; count++; } } return count; }).reduce((acc, curr) => acc+curr, 0)

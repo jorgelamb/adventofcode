@@ -1,0 +1,1 @@
+[[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]].map(slope => { return input.split(",").map((row, idx) => { return ((idx % slope[1]) == 0) && (row.charAt((idx*slope[0]/slope[1]) % row.length)=="#")}).reduce((acc, current) => { return acc + (current? 1 : 0); }) }).reduce((acc, current) => { console.log(current); return acc * current }, 1)

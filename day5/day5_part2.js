@@ -1,0 +1,1 @@
+input.split(",").map(s => s.replace(/[BR]/g, "1").replace(/[FL]/g, "0")).map(s => parseInt(s, 2)).sort().reduce((acc, current) => { if(acc==-1 || current == acc+1) return current; else return acc; }, -1)

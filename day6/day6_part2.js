@@ -1,0 +1,1 @@
+input.split(",,").map(group => { var allYes = 0; var count = {}; var p = group.split(","); for(i=0; i<p.length; i++) { for(c=0; c<p[i].length; c++) { if(count[p[i].charAt(c)]) { count[p[i].charAt(c)]++; } else { count[p[i].charAt(c)] = 1; } if(count[p[i].charAt(c)] == p.length) { allYes++; } } } return allYes; }).reduce((acc, curr) => { console.log(curr); return acc+curr; } , 0)
