@@ -14,41 +14,63 @@ function log(s) {
 }
 
 function runCode(test) {
+	clearLog();
+	store();
 	var input = document.getElementById((test ? "test_" : "")+"input").value;
 	var code = document.getElementById("code").value;
 
 	eval(code);
 }
+
+function store() {
+	var y = document.getElementById("year").value;
+	var d = document.getElementById("day").value;
+	var p = document.getElementById("problem").value;
+	localStorage.setItem("input_"+y+"_"+d+"_"+p, document.getElementById("input").value);
+	localStorage.setItem("test_input_"+y+"_"+d+"_"+p, document.getElementById("test_input").value);
+	localStorage.setItem("code_"+y+"_"+d+"_"+p, document.getElementById("code").value);
+}
+
+function load(sameDate) {
+	var y = document.getElementById("year").value;
+	var d = document.getElementById("day").value;
+	var p = document.getElementById("problem").value;
+	document.getElementById("input").value = localStorage.getItem("input_"+y+"_"+d+"_"+p) || document.getElementById("input").value;
+	document.getElementById("test_input").value = localStorage.getItem("test_input_"+y+"_"+d+"_"+p) || document.getElementById("test_input").value;
+	document.getElementById("code").value = localStorage.getItem("code_"+y+"_"+d+"_"+p) || document.getElementById("code").value;
+}
+
 </script>
 
-<select id="year">
+<select id="year" onchange="load(false)">
 <script>
-	for(i=2015; i!=(new Date()).getFullYear()+1; i++) {
-		document.write("<option>"+i+"</option>");
+	for(i=2015; i<=(new Date()).getFullYear(); i++) {
+		document.write("<option"+(i==(new Date()).getFullYear()? " selected" : "")+">"+i+"</option>");
 	}
 </script>
 </select>
-<select id="day">
+<select id="day" onchange="load(false)">
 <script>
-	for(i=1; i!=26; i++) {
-		document.write("<option>"+i+"</option>");
+	for(i=1; i<=25; i++) {
+		document.write("<option"+(i==(new Date().getDate())? " selected" : "")+">"+i+"</option>");
 	}
 </script>
 </select>
-<select id="problem">
+<select id="problem" onchange="load(true)">
 	<option>1</option>
 	<option>2</option>
 </select>
 
 Input
-<textarea id="input">abc
-def</textarea>
+<textarea id="input"></textarea>
 
 Test input
 <textarea id="test_input"></textarea>
 
 Code
-<textarea id="code">log(input.split("\n")[0]);</textarea>
+<textarea id="code">input.split("\n");
+
+log(result);</textarea>
 
 Log
 <textarea id="log"></textarea>
