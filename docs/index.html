@@ -1,6 +1,11 @@
-## github pages
+<!doctype html>
 
-Test
+<html lang="en">
+<head>
+	<title>jorgelamb adventofcode page</title>
+</head>
+<body>
+	<h1>Adventofcode page</h1>
 
 <script>
 function clearLog(s) {
@@ -39,9 +44,9 @@ function load(sameDate) {
 	document.getElementById("test_input").value = localStorage.getItem("test_input_"+y+"_"+d+"_"+p) || document.getElementById("test_input").value;
 	document.getElementById("code").value = localStorage.getItem("code_"+y+"_"+d+"_"+p) || document.getElementById("code").value;
 }
-
 </script>
 
+<p>
 <select id="year" onchange="load(false)">
 <script>
 	for(i=2015; i<=(new Date()).getFullYear(); i++) {
@@ -60,20 +65,38 @@ function load(sameDate) {
 	<option>1</option>
 	<option>2</option>
 </select>
+</p>
 
+<p>
 Input
 <textarea id="input"></textarea>
+</p>
 
+<p>
 Test input
 <textarea id="test_input"></textarea>
+</p>
 
+<p>
 Code
 <textarea id="code">input.split("\n");
 
 log(result);</textarea>
+</p>
 
+<p>
 Log
 <textarea id="log"></textarea>
+</p>
 
+<p>
 <button onclick="runCode(true)">Evaluate test input</button>
 <button onclick="runCode(false)">Evaluate input</button>
+</p>
+
+<script>
+	load(false);
+</script>
+
+</body>
+</html>
