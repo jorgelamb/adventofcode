@@ -44,7 +44,7 @@ function runCode(test) {
 	clearLog();
 	store();
 	var input = document.getElementById((test ? "test_" : "")+"input").value;
-	var code = document.getElementById("code").value;
+	var code = getCode();
 
 	eval(code);
 }
