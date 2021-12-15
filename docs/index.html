@@ -15,8 +15,22 @@ function clearLog(s) {
 
 function log(s) {
 	var l = document.getElementById("log");
-	l.value += s + "\n";
+	l.value += JSON.stringify(s) + "\n";
 }
+
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+  var message = [
+    'Message: ' + msg,
+    'URL: ' + url,
+    'Line: ' + lineNo,
+    'Column: ' + columnNo,
+    'Error object: ' + JSON.stringify(error)
+  ].join(' - ');
+
+  log(message);
+
+  return false;
+};
 
 function runCode(test) {
 	clearLog();
@@ -79,9 +93,10 @@ Test input<br>
 
 <p>
 Code<br>
-<textarea id="code">input.split("\n");
+<textarea id="code">var lines = input.split("\n");
+
 var result = "";
-log("result: ${result}");</textarea>
+log(`result: ${result}`);</textarea>
 </p>
 
 <p>
