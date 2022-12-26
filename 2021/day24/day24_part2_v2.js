@@ -39,7 +39,8 @@ function runRecursive(program, startLine, state, depth, prefix) {
     switch(parts[0]) {
       case "inp":
         var newState = [...state];
-        for(var newInput=(depth==0 ? LEADING : (depth==1 ? 2 : 9)); newInput>=(depth==0 ? LEADING : 1); newInput--) {
+        for(var newInput=(depth==0 ? LEADING : 1); newInput<=(depth==0 ? LEADING : (depth==1 ? 2 : 9)); newInput++) {
+        //for(var newInput=(depth==0 ? LEADING : (depth==1 ? 2 : 9)); newInput>=(depth==0 ? LEADING : 1); newInput--) {
         //for(var newInput=9; newInput>=1; newInput--) {
           for(var i=0; i<state.length; i++) {
             newState[i] = state[i];
@@ -47,9 +48,9 @@ function runRecursive(program, startLine, state, depth, prefix) {
           setValue(parts[1], newInput, newState);
           runRecursive(program, l+1, newState, depth+1, prefix+newInput);
         }
-        if(depth%2==0) {
+        //if(depth%2==0) {
           cache[key] = (cache[key] || 0)+1;
-	}
+	//}
         //if(depth == 13) { log(` adding key: ${key} --> ${cache[key]}`); }
         return;
 

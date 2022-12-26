@@ -22,7 +22,8 @@ var model;
 //for(model=99999999999999; model>0 && !found; model--) {
 //for(model=99999999999999; model>99999999999997 && !found; model--) {
 //for(model=99982337000000; model>0 && !found; model--) {
-for(model=99942983000000; model>0 && !found; model--) {
+//for(model=99942983000000; model>0 && !found; model--) {
+for(model=97135699999999; model>0 && !found; model--) {
   if(model % 1000000 == 0) { log(model); }
   var model_string = model.toString();
   if(model_string.indexOf("0")>=0) {
