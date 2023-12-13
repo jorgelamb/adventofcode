@@ -17,7 +17,6 @@ var lines = input.split("\n");
 var cache = {};
 
 function findArrangements(str, numbers, canBeOperational, canBeDamaged) {
-  //log({str, numbers, canBeOperational, canBeDamaged});
   var cacheKey = `${str}_${numbers}_${canBeOperational}_${canBeDamaged}`;
   var cached = cache[cacheKey];
   if(cached != undefined) {
@@ -55,7 +54,6 @@ function findArrangements(str, numbers, canBeOperational, canBeDamaged) {
       if(canBeDamaged) {
         var nextDamaged = numbers[0];
         nextDamaged--;
-        //log(numbers);
         var newNumbers = [...numbers];
         if(nextDamaged==0) {
           newNumbers.splice(0, 1);
@@ -108,8 +106,6 @@ function calculate(l) {
   var numbers = l.split(" ")[1].split(",").map(n => parseInt(n));
   numbers = [...numbers, ...numbers, ...numbers, ...numbers, ...numbers];
   var count = findArrangements(str, numbers, true, true);
-  //log(l);
-  log(count);
   return count;
 }
 
