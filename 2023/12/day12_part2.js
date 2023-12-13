@@ -6,7 +6,7 @@ function log(o) {
 
 const TEST = false;
 
-const FILENAME = (TEST ? 'test.txt' : 'input.txt');
+const FILENAME = process.argv[2];
 fs.readFile(FILENAME, 'utf8', function(err, data) {
   if (err) throw err;
   var input = data.trim();
@@ -14,21 +14,37 @@ fs.readFile(FILENAME, 'utf8', function(err, data) {
 
 var lines = input.split("\n");
 
+var cache = {};
+
 function findArrangements(str, numbers, canBeOperational, canBeDamaged) {
   //log({str, numbers, canBeOperational, canBeDamaged});
+  var cacheKey = `${str}_${numbers}_${canBeOperational}_${canBeDamaged}`;
+  var cached = cache[cacheKey];
+  if(cached != undefined) {
+    return cached;
+  }
   if(str=="") {
     if(numbers.length==0) {
-      return 1;
+      count = 1;
+      cache[cacheKey] = count
+      return count;
     } else {
-      return 0;
+      count = 0;
+      cache[cacheKey] = count
+      return count;
     }
   }
+  var count = 0;
   switch(str.charAt(0)) {
     case ".":
       if(canBeOperational) {
-        return findArrangements(str.substring(1), numbers, true, true);
+        count = findArrangements(str.substring(1), numbers, true, true);
+        cache[cacheKey] = count
+        return count;
       } else {
-        return 0;
+        count = 0;
+        cache[cacheKey] = count
+        return count;
       }
       break;
 
@@ -43,18 +59,24 @@ function findArrangements(str, numbers, canBeOperational, canBeDamaged) {
         var newNumbers = [...numbers];
         if(nextDamaged==0) {
           newNumbers.splice(0, 1);
-          return findArrangements(str.substring(1), newNumbers, true, false);
+          count = findArrangements(str.substring(1), newNumbers, true, false);
+          cache[cacheKey] = count
+          return count;
         } else {
           newNumbers[0] = nextDamaged;
-          return findArrangements(str.substring(1), newNumbers, false, true);
+          count = findArrangements(str.substring(1), newNumbers, false, true);
+          cache[cacheKey] = count
+          return count;
         }
       } else {
-        return 0;
+        count = 0;
+        cache[cacheKey] = count
+        return count;
       }
       break;
 
     case "?":
-      var count = 0;
+      count = 0;
       if(numbers.length==0) {
         canBeDamaged=false;
       }
@@ -73,12 +95,14 @@ function findArrangements(str, numbers, canBeOperational, canBeDamaged) {
           count += findArrangements(str.substring(1), newNumbers, false, true);
         }
       }
+      cache[cacheKey] = count
       return count;
 
   }
 }
 
 function calculate(l) {
+  cache = {};
   var str = l.split(" ")[0];
   str = [str, str, str, str, str].join("?");
   var numbers = l.split(" ")[1].split(",").map(n => parseInt(n));
